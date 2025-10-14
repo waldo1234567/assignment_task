@@ -8,6 +8,7 @@ This app uses Open-Meteo for geocoding and forecast data and is built with React
 ## Live demo
 
 Link goes here
+https://waldo1234567.github.io/assignment_task/
 
 ## Technologies
 
