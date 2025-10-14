@@ -12,6 +12,7 @@ export default function Dashboard() {
     const { data, loading, error, fetchForCity } = useWheather();
     const [lastQuery, setLastQuery] = useState("");
     const [loaded, setLoaded] = useState(false);
+    const [now, setNow] = useState(new Date());
 
     useEffect(() => {
         const defaultCity = "Taichung";
@@ -27,6 +28,11 @@ export default function Dashboard() {
             setLoaded(false)
         }
     }, [data]);
+
+    useEffect(() => {
+        const id = setInterval(() => setNow(new Date()), 1000);
+        return () => clearInterval(id);
+    }, []);
 
     function handleSearch(q) {
         if (!q) return;
@@ -50,7 +56,7 @@ export default function Dashboard() {
 
     const weathercode = data?.weather?.current_weather?.weathercode;
     const bgType = mapCodeToBg(weathercode);
-    console.log(bgType);
+    
     return (
         <>
             <div className={`min-h-screen p-6 weather-bg weather-bg--${bgType}`}>
@@ -66,7 +72,7 @@ export default function Dashboard() {
                         </div>
                     </header>
 
-                    <div className={`mx-auto max-w-5xl transform transition-all duration-500 ease-out ${loaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"}`}>
+                    <div className={`mx-auto max-w-5xl transform transition-all duration-500 ease-out ${loaded ? "opacity-100 translate-y-0" : "opacity-70 -translate-y-2"}`}>
                         <main className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                             <section className="lg:col-span-2 space-y-4">
                                 <div className="z-40">{loading && <LoadingSpinner />}</div>
@@ -83,13 +89,20 @@ export default function Dashboard() {
                                 </div>
                             </section>
 
-                            <aside className="space-y-4">
+                            <aside className="space-y-2 mt-4">
                                 <div className="frosted-card p-4">
                                     <div className="flex items-center gap-3">
                                         <Clock size={18} />
                                         <div>
                                             <div className="text-xs text-slate-600">Local Time</div>
-                                            <div className="text-sm">{new Date().toLocaleDateString()}</div>
+                                            <div className="local-time mt-1">
+                                                <div className="local-time__time" aria-live="polite">
+                                                    {now.toLocaleTimeString()}
+                                                </div>
+                                                <div className="local-time__date text-sm text-slate-600">
+                                                    {now.toLocaleDateString()}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

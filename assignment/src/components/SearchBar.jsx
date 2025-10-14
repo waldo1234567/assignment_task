@@ -1,3 +1,4 @@
+import { Search } from "lucide-react";
 import React, { useEffect, useState, useRef } from "react"
 
 export default function SearchBar({ onSearch, initial = "", debounceMs = 350 }) {
@@ -60,10 +61,9 @@ export default function SearchBar({ onSearch, initial = "", debounceMs = 350 }) 
                     if(timer.current) clearTimeout(timer.current);
                     triggerSearch(value);
                 }}
-                className="rounded-md bg-sky-600 px-4 py-2 text-white shadow hover:bg-sky-800"
                 aria-label="Search"
             >
-                Search
+                <Search size={20}/>
             </button>
         </div>
     )

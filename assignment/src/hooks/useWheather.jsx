@@ -19,12 +19,9 @@ export default function useWheather() {
                 q
             )}&count=10`;
             const response = await fetch(geoUrl);
-            console.log(response, "raw response")
             if (!response.ok) throw new Error(`Searching Failed${response.status}`);
             const jsonRes = await response.json();
-            console.log(jsonRes, "json res log")
             const place = jsonRes?.results?.[0];
-            console.log(place, "place log")
             if (!place) throw new Error("City not found, try using the country code");
 
             const { latitude, longitude, name: placeName, country, timezone } = place;
@@ -33,7 +30,6 @@ export default function useWheather() {
             const percip = "precipitation_probability";
             const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=auto&current_weather=true&daily=${daily}&hourly=${percip}&forecast_days=5`
             const weatherRes = await fetch(weatherUrl);
-            console.log(weatherRes, "res")
             if (!weatherRes.ok) throw new Error(`Weather fetch failed (${weatherRes.status})`);
             const weatherJson = await weatherRes.json();
 

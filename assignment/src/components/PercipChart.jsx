@@ -69,7 +69,7 @@ export default function PercipChart({ weather, days = 5 }) {
         <>
             <div className="frosted-card p-4">
                 <div className="mb-10 flex items-center">
-                    <div className="text-lg font-semibold">Chance Of Pecipitation</div>
+                    <div className="text-lg font-semibold">Chance Of Precipitation</div>
                     <Umbrella size={30} style={{transform: 'rotate(36deg)', marginLeft:'8px'}}/>
                 </div>
 
